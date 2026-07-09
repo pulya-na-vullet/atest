@@ -1,4 +1,4 @@
-package ru.alfabank.program.dto;
+package ru.alfabank.ufr.program.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;

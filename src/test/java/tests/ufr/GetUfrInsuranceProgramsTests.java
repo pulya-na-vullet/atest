@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import ru.alfabank.ufr.program.clients.UfrInsuranceProgramClient;
 import ru.alfabank.ufr.program.specifications.UfrSpecifications;
 import io.restassured.common.mapper.TypeRef;
-import ru.alfabank.program.dto.InsuranceProgramDto;
+import ru.alfabank.ufr.program.dto.InsuranceProgramDto;
 
 import java.util.List;
 
@@ -30,11 +30,12 @@ public class GetUfrInsuranceProgramsTests {
     public void getInsurancePrograms_returns200AndNonEmptyArray() {
         Response response = ufrInsuranceProgramClient.getInsurancePrograms();
 
-        response.then()
+        List<InsuranceProgramDto> programs = response.then()
                 .log().ifValidationFails()
-                .spec(UfrSpecifications.responseSpec200Json());
-
-        List<?> programs = response.jsonPath().getList("$");
+                .spec(UfrSpecifications.responseSpec200Json())
+                .extract()
+                .as(new TypeRef<>() {
+                });
 
         assertNotNull(programs, "Список программ не должен быть null");
         assertFalse(programs.isEmpty(), "Список программ не должен быть пустым");
@@ -46,17 +47,17 @@ public class GetUfrInsuranceProgramsTests {
     public void getInsurancePrograms_returnsProgramsWithExpectedContract() {
         Response response = ufrInsuranceProgramClient.getInsurancePrograms();
 
-        response.then()
+        List<InsuranceProgramDto> programs = response.then()
                 .log().ifValidationFails()
-                .spec(UfrSpecifications.responseSpec200Json());
-
-        List<InsuranceProgramDto> programs =
-                response.as(new TypeRef<List<InsuranceProgramDto>>() {});
+                .spec(UfrSpecifications.responseSpec200Json())
+                .extract()
+                .as(new TypeRef<>() {
+                });
 
         assertNotNull(programs, "Список программ не должен быть null");
         assertFalse(programs.isEmpty(), "Список программ не должен быть пустым");
 
-        for (InsuranceProgramDto program : programs) {
+        programs.forEach(program -> {
             assertNotNull(program, "Программа не должна быть null");
 
             assertNotNull(program.getProgramId(), "У программы должен быть programId");
@@ -78,6 +79,6 @@ public class GetUfrInsuranceProgramsTests {
             if (program.getProgramCode() != null) {
                 assertFalse(program.getProgramCode().isBlank(), "programCode не должен быть пустым");
             }
-        }
+        });
     }
 }
