@@ -8,10 +8,10 @@ import java.util.List;
 
 @Data
 @Builder
-public class ContractRequest {
+public class CreateContractRequest {
 
     private Long programId;
-    private String programCode;
+    private String contractNumber;
 
     private String signDate;
     private String beginDate;
@@ -19,11 +19,11 @@ public class ContractRequest {
 
     private Integer duration;
     private String paymentType;
-    private String contractNumber;
 
     private BigDecimal insuranceSum;
     private BigDecimal insurancePremium;
 
+    private String debitAccount;
     private String sellerId;
     private String sellerChannel;
 
@@ -31,9 +31,7 @@ public class ContractRequest {
     private String policyLink;
     private String agreementLink;
 
-    private String verificationStatus;
+    private AccountOwner owner;
 
-    private Owner owner;
-
-    private List<InsuranceObject> insuranceObjects;
+    private List<AccountInsuranceObject> insuranceObjects;
 }

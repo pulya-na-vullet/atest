@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class Owner {
+public class AccountOwner {
     private String ownerId;
     private String inn;
     private String phoneNumber;
