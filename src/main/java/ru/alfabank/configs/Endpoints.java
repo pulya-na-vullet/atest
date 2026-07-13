@@ -12,6 +12,10 @@ public final class Endpoints {
             "/corp-ncins-acc-gateway/secure/" +
                     "corp-ncins-acc-corp-ncins-acc-api/v1/ins-programs";
 
+    public static final String CONTRACT_NUMBER_GENERATION =
+            "/corp-ncins-acc-gateway/secure/" +
+                    "corp-ncins-acc-corp-ncins-acc-api/v1/ins-contracts/contract-number";
+
     public static final String CONTRACT_PROGRAMS =
             "/corp-ncins-acc-gateway/secure/" +
                     "corp-ncins-acc-corp-ncins-acc-api/v1/ins-contracts";
